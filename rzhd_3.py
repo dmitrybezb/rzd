@@ -2,7 +2,7 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 import time
-import winsound as w
+# import winsound as w
 import imp
 
 
@@ -54,6 +54,7 @@ def find_train(url, place_type):
     t=1
     while t !=0:
         try:
+            print "Searching for element"
             place_block = browser.find_element_by_xpath("/html/body/div/table/tbody/tr/td[2]/div[6]/div[6]") #XPath требуемого элемента получить очень легко например при помощи firebug в firefox или devtools в chrome/safari.
             place_info = place_block.text
     ##            place_name  = place_info[1].split(',')[0] # Нас интересует только название, без типа заведения
@@ -72,7 +73,7 @@ def find_train(url, place_type):
     if place_info.find(place_type)>=0:
         # print place_info
         print 'Found it! - place #', place_info.find(place_type)
-        w.Beep(500,1000)
+        # w.Beep(500,1000)
         return True
     else:
         print "=("
