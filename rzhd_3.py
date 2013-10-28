@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+from pyvirtualdisplay import Display
 import time
 # import winsound as w
 import imp
@@ -46,6 +47,8 @@ def find_train(url, place_type):
     """
     Get url of direction as a string and searching for availiable Place
     """
+
+
     browser = webdriver.Firefox() # Запускаем локальную сессию firefox
     # url = "http://pass.rzd.ru/timetable/public/ru?STRUCTURE_ID=735&layer_id=5354&refererVpId=1&refererPageId=704&refererLayerId=4065#dir=0|tfl=3|checkSeats=1|st0=%D0%9C%D0%9E%D0%A1%D0%9A%D0%92%D0%90%7Ccode0=2000000|dt0=12.07.2013|st1=%D0%A1%D0%90%D0%9D%D0%9A%D0%A2-%D0%9F%D0%95%D0%A2%D0%95%D0%A0%D0%91%D0%A3%D0%A0%D0%93%7Ccode1=2004000|dt1=28.06.2013"
     browser.get(url) # Загружаем страницу
@@ -85,31 +88,35 @@ def find_train(url, place_type):
 
 
 #---------------------------------------------------------------------------------------------
+def rzhd():
+    directions=[create_url(),]
 
-directions=[create_url(),]
+    while raw_input('Want to add more directions? y/n ')=='y':
+        directions.append(create_url())
+        print "------------------"
+    n=raw_input('Check tickets every ...(seconds)? ')
 
-while raw_input('Want to add more directions? y/n ')=='y':
-    directions.append(create_url())
-    print "------------------"
-n=raw_input('Check tickets every ...(seconds)? ')
+    place=choose_place()
+    i = 0
+    display = Display(visible=0, size=(1024, 768))
+    display.start() # Запускаем вирутальный дисплей
+    while len(directions)!=0:
+        i+=1
+        print
+        print "-----------------searching for PLATSKART---------------------------------"
 
-place=choose_place()
-i = 0
-while len(directions)!=0:
-    i+=1
-    print
-    print "-----------------searching for PLATSKART---------------------------------"
+        print "try #",i
+        print time.asctime()
+        print
 
-    print "try #",i
-    print time.asctime()
-    print
+        for url in directions:
+            if find_train(url, place)==True:
+                if raw_input('Did you buy ticket? y/n ')=='y':
+                    directions.remove(url)
+                
 
-    for url in directions:
-        if find_train(url, place)==True:
-            if raw_input('Did you buy ticket? y/n ')=='y':
-                directions.remove(url)
-            
-
-        if url==directions[-1]:
-            print str(n)+" seconds until next try..."
-            time.sleep(float(n)) # Дадим браузеру корректно завершиться
+            if url==directions[-1]:
+                print str(n)+" seconds until next try..."
+                time.sleep(float(n)) # Дадим браузеру корректно завершиться
+    display.stop()
+rzhd()
