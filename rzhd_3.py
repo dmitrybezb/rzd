@@ -14,15 +14,14 @@ def create_url():
     cities_codes={'sar':'2020000','msk':'2000000','spb':'2004000','kzn':'2060500', 'nn' : '2060001'}
     print
     print 'CityList: ', cities_codes.keys()
-    print 'default: msk -> spb'
+    st0='msk'
+    st1='nn'
+    print 'default: ' + st0 + ' -> ' + st1
 
     st0=raw_input('From...')
     st1=raw_input('To...')
-    if st0=="":
-        st0='msk'
 
-    if st1=="":
-        st1='nn'
+        
 
     st0='code0='+ cities_codes[st0] +'|'
     st1='code1='+ cities_codes[st1] +'|'
