@@ -56,7 +56,7 @@ def find_train(url, place_type):
         try:
             place_block = browser.find_element_by_xpath("/html/body/div/table/tbody/tr/td[2]/div[6]/div[6]") #XPath требуемого элемента получить очень легко например при помощи firebug в firefox или devtools в chrome/safari.
             place_info = place_block.text
-    ##            place_name = place_info[1].split(',')[0] # Нас интересует только название, без типа заведения
+    ##            place_name  = place_info[1].split(',')[0] # Нас интересует только название, без типа заведения
     ##            place_address = place_info[2]
     ##            string_for_file = "Название: " +place_name+ "\tАдрес: " + place_address + "\n"
     ##            f = open("/home/user_name/my_pizza_list.txt", "a") # Если вы уже ведете такой список. Иначе не забудьте добавить правильный ключ для создания файла. Или создайте файл вручную.
