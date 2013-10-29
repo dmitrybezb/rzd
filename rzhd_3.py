@@ -23,7 +23,7 @@ def create_url():
     if st0 == "":
         st0 = st0def
     st1=raw_input('To...')
-        if st1 == "":
+    if st1 == "":
         st1 = st1def
 
         
