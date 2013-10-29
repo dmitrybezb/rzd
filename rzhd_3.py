@@ -135,7 +135,7 @@ def rzhd():
 
         for url in directions:
             if find_train(url, place)==True:
-                send_email('dmitrybezb@gmail.com', url)
+                send_email('dimka_b@inbox.ru', url)
                 if raw_input('Did you buy ticket? y/n ')=='y':
                     directions.remove(url)
                 
