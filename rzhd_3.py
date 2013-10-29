@@ -1,11 +1,31 @@
 # -*- coding: utf-8 -*
-from selenium import webdriver
+from selenium import webdriver # virtual browser
 from selenium.common.exceptions import NoSuchElementException
-from pyvirtualdisplay import Display
+from pyvirtualdisplay import Display # virtual display
+# email
+import smtplib   
+from email.mime.text import MIMEText 
+# /email
 import time
 # import winsound as w
-import imp
+# import imp
+def send_email(mailbox, text):
+    me = 'python_sms@mail.ru'
+    you = mailbox
+    smtp_server = 'smtp.mail.ru'
+    msg = MIMEText(text)
+    msg['Subject'] = 'I found tickets, buy it NOW!!!'
+    msg['From'] = me
+    msg['To'] = you
+    # Credentials (if needed)  
+    username = 'python_sms@mail.ru'  
+    password = 'stupidpassword1'
 
+    s = smtplib.SMTP(smtp_server)
+    s.starttls()  
+    s.login(username,password)  
+    s.sendmail(me, [you], msg.as_string())
+    s.quit()
 
 def create_url():
     """
@@ -115,6 +135,7 @@ def rzhd():
 
         for url in directions:
             if find_train(url, place)==True:
+                send_email('dmitrybezb@gmail.com', url)
                 if raw_input('Did you buy ticket? y/n ')=='y':
                     directions.remove(url)
                 
