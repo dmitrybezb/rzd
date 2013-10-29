@@ -35,13 +35,13 @@ def create_url():
     date="dt0="+raw_input("What day? (For ex: 12): ")+'.'+ raw_input("What month? (For ex: 07): ")+".2013|"
     time='ti0='+ raw_input("Since what time? (For ex: 19): ") +'-' + raw_input("Until what time? (For ex: 24): ")+'|' # asking for time
 
-    url = "http://pass.rzd.ru/timetable/public/ru?STRUCTURE_ID=735&layer_id=5354&refererVpId=1&refererPageId=704&refererLayerId=4065#dir=0|tfl=3|checkSeats=1|"+st0+date+time+st1
+    url = "http://pass.rzd.ru/timetable/public/ru?STRUCTURE_ID=735&layer_id=5354&refererVpId=1&refererPageId=704&refererLayerId=4065#dir=0|tfl=3|checkSeats=0|"+st0+date+time+st1
 
     return url
 
 def choose_place():
     place_types={'1':u'\u041f\u043b\u0430\u0446\u043a\u0430\u0440\u0442\u043d\u044b\u0439', '2':u'\u041a\u0443\u043f\u0435', '3':u'\u0421\u0438\u0434\u042F\u0427\u0438\u0439'}
-    place=raw_input('Input type of place (1 - plac(default), 2 - kupe, 3 - sidya4ii): ')
+    place=raw_input('Input type of place (1 - plac(default), 2 - kupe, 3 - sidya4ka): ')
     if place=="":
         place='1'
 
