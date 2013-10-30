@@ -139,6 +139,9 @@ def rzhd():
                 send_email('dimka_b@inbox.ru', url)
                 if raw_input('Did you buy ticket? y/n ')=='y':
                     directions.remove(url)
+                    if len(directions) == 0:
+                        print "Successfully bought all tickets!"
+                        return True
                 
 
             if url==directions[-1]:
