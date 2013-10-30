@@ -40,18 +40,14 @@ def create_url():
     print 'default: ' + st0def + ' -> ' + st1def
 
     st0=raw_input('From...')
-    if st0 == "":
+    if st0 not in cities_codes.keys():
         st0 = st0def
     st1=raw_input('To...')
-    if st1 == "":
+    if st1 not in cities_codes.keys():
         st1 = st1def
-
-        
 
     st0='code0='+ cities_codes[st0] +'|'
     st1='code1='+ cities_codes[st1] +'|'
-
-
     date="dt0="+raw_input("What day? (For ex: 12): ")+'.'+ raw_input("What month? (For ex: 07): ")+".2013|"
     time='ti0='+ raw_input("Since what time? (For ex: 19): ") +'-' + raw_input("Until what time? (For ex: 24): ")+'|' # asking for time
 
@@ -83,7 +79,7 @@ def find_train(url, place_type):
         start = time.clock()
         try:
             print "Searching for element"
-            place_block = browser.find_element_by_xpath("/html/body/div/table/tbody/tr/td[2]/div[6]/div[6]") #XPath требуемого элемента получить очень легко например при помощи firebug в firefox или devtools в chrome/safari.
+            place_block = browser.find_element_by_xpath("/html/body/div/table/tbody/tr/td[2]/div[6]/div[6]/table/tbody") #XPath требуемого элемента получить очень легко например при помощи firebug в firefox или devtools в chrome/safari.
             place_info = place_block.text
     ##            place_name  = place_info[1].split(',')[0] # Нас интересует только название, без типа заведения
     ##            place_address = place_info[2]
@@ -92,8 +88,8 @@ def find_train(url, place_type):
     ##            f.write(string_for_file)
             t=0
         except NoSuchElementException:
-            if (time.clock() - start) >= 60: # Если минуту не можем найти нужный блок, то возвращаем False (нет мест) и далее по ходу выполнения перезагружаем браузер
-                print "Can't find trains for 1 minute. Probably server does not respond. Close browser..."
+            if (time.clock() - start) >= 20: # Если минуту не можем найти нужный блок, то возвращаем False (нет мест) и далее по ходу выполнения перезагружаем браузер
+                print "Can't find element_by_xpath for 20 seconds. Probably server does not respond. Restart browser..."
                 return False
             else:
                 time.sleep(1)
