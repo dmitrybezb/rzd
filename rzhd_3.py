@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*
 from selenium import webdriver # virtual browser
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 from pyvirtualdisplay import Display # virtual display
 # email
 import smtplib   
 from email.mime.text import MIMEText 
 # /email
 import time
+from datetime import datetime as dt
 # import winsound as w
 # import imp
 def send_email(mailbox, text):
@@ -49,10 +51,19 @@ def create_url():
 
     st0='code0='+ cities_codes[st0] +'|'
     st1='code1='+ cities_codes[st1] +'|'
+
     day=raw_input("What day? (For ex: 12): ")
+    if day not in range(1, 32):
+        day = str(dt.now().day)
     month=raw_input("What month? (For ex: 07): ")
+    if month not in range(1,13):
+        month = str(dt.now().month)
     start=raw_input("Since what time? (For ex: 19): ")
-    end=raw_input("Until what time? (For ex: 24): ") 
+    if start not in range(0,25):
+        start = '00'
+    end=raw_input("Until what time? (For ex: 24): ")
+    if end not in range(0,25):
+        end = '24'
 
     date="dt0="+ day +'.'+ month +".2013|"
     time='ti0='+ start +'-' + end +'|' # asking for time
@@ -74,9 +85,17 @@ def find_train(url, place_type):
     """
     Get url of direction as a string and searching for availiable Place
     """
+    ## get the Firefox profile object
+    firefoxProfile = FirefoxProfile()
+    ## Disable CSS
+    firefoxProfile.set_preference('permissions.default.stylesheet', 2)
+    ## Disable images
+    firefoxProfile.set_preference('permissions.default.image', 2)
+    ## Disable Flash
+    firefoxProfile.set_preference('dom.ipc.plugins.enabled.libflashplayer.so','false')
+    # Запускаем локальную сессию firefox
+    browser = webdriver.Firefox(firefoxProfile)
 
-
-    browser = webdriver.Firefox() # Запускаем локальную сессию firefox
     # url = "http://pass.rzd.ru/timetable/public/ru?STRUCTURE_ID=735&layer_id=5354&refererVpId=1&refererPageId=704&refererLayerId=4065#dir=0|tfl=3|checkSeats=1|st0=%D0%9C%D0%9E%D0%A1%D0%9A%D0%92%D0%90%7Ccode0=2000000|dt0=12.07.2013|st1=%D0%A1%D0%90%D0%9D%D0%9A%D0%A2-%D0%9F%D0%95%D0%A2%D0%95%D0%A0%D0%91%D0%A3%D0%A0%D0%93%7Ccode1=2004000|dt1=28.06.2013"
     browser.get(url) # Загружаем страницу
     ## browser.set_window_size(80,60) # Комментируем чтобы видеть экран
@@ -226,7 +245,8 @@ def rzhd():
     while raw_input('Want to add more directions? y/n ')=='y':
         directions.append(create_url())
         print "------------------"
-    n=raw_input('Check tickets every ...(seconds)? ')
+    # n=raw_input('Check tickets every ...(seconds)? ')
+    n = 60
 
     place=choose_place()
     i = 0
