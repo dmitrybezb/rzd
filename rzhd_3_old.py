@@ -101,6 +101,7 @@ def find_train(url, place_type):
 
 
     trains = [] #пустой список подходящих поездов
+    browser.get_screenshot_as_file('screen.png')
     
     print len(place_block), " - number of trains"
     # Идём по всему списку Элементов-поездов и ищем наш тип места
