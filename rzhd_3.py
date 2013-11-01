@@ -98,10 +98,10 @@ def find_train(url, place_type):
             else:
                 time.sleep(1)
             # print "can't open url"
-
+        time.sleep(1)
 
     trains = [] #пустой список подходящих поездов
-    
+    print len(place_block), " - number of trains"
     # Идём по всему списку Элементов-поездов и ищем наш тип места
     for n in range(0,len(place_block)):
         place_info = place_block[n].text
@@ -204,7 +204,7 @@ def find_train(url, place_type):
             print "Founded trains :"
             for gt in good_trains.keys():
                 print '---------------'
-                print gt #Названия поездов
+                print gt.encode('utf-8','replace') #Названия поездов
                 print
                 for s in good_trains[gt]:
                     print s # Доступные места
