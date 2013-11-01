@@ -169,7 +169,7 @@ def find_train(url, place_type):
                         seats=browser.find_element_by_xpath("/html/body/div/table/tbody/tr/td[2]/div[3]/div/div/table[2]/tbody[2]/tr[" + str(n) + "]/td[7]/div")
                     
                     # Составляем список небоковушек из доступных мест
-                    print seats.text
+                    print seats.text.encode('utf-8','replace')
                     seats=seats.text.split('\n')
                     good_seats=[]
                     for i in range(0, len(seats)):
