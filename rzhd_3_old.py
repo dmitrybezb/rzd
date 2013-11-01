@@ -102,9 +102,12 @@ def find_train(url, place_type):
 
     trains = [] #пустой список подходящих поездов
     
+    print len(place_block), " - number of trains"
     # Идём по всему списку Элементов-поездов и ищем наш тип места
     for n in range(0,len(place_block)):
         place_info = place_block[n].text
+        print n, "-ii poezd"
+        print place_info
         if place_info.find(place_type)>=0:
             print 'Found it! - place #', place_info.find(place_type)
             print n
