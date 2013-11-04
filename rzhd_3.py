@@ -108,8 +108,11 @@ def find_train(url, place_type):
         try:
             print "Searching for html-element with trains..."
             # поиск элементов-поездов
-            place_block = browser.find_elements_by_class_name("trlist__trlist-row") # List of WebElements with trains
             
+            # place_block = browser.find_elements_by_class_name("trlist__trlist-row") # List of WebElements with trains
+            place_block = browser.find_elements_by_class_name("trlist__table-price")
+            place_block2 = browser.find_element_by_xpath('/html/body/div/table/tbody/tr/td[2]/div[6]/div[6]/table/tbody/tr')
+
         except NoSuchElementException:
             if (time.clock() - start) >= 20: # Если минуту не можем найти нужный блок, то возвращаем False (нет мест) и далее по ходу выполнения перезагружаем браузер
                 print "Can't find element_by_xpath for 20 seconds. Probably server does not respond. Restart browser..."
@@ -121,10 +124,13 @@ def find_train(url, place_type):
 
     trains = [] #пустой список подходящих поездов
     print len(place_block), " - number of trains"
+    print 'First element_by_xpath'
+    print place_block2.text
     # Идём по всему списку Элементов-поездов и ищем наш тип места
     for n in range(0,len(place_block)):
         place_info = place_block[n].text
         print n, "-ii poezd"
+        print place_info
         if place_info.find(place_type)>=0:
             print 'Found it! - place #', place_info.find(place_type)
             print n
@@ -235,7 +241,7 @@ def find_train(url, place_type):
     print time.asctime()
     print "--------------------------------------------------"
     print
-    browser.close()
+    browser.quit()
     return False
 
 
