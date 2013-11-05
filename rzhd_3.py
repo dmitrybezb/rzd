@@ -126,9 +126,14 @@ def find_train(url, place_type):
     print len(place_block), " - number of trains"
     print 'First element_by_xpath'
     print place_block2.text
+    print place_block2.tag_name, " - tag_name"
+    print place_block2.size, " - size"
     # Идём по всему списку Элементов-поездов и ищем наш тип места
     for n in range(0,len(place_block)):
         place_info = place_block[n].text
+        print place_block[n].text
+        print place_block[n].tag_name, " - tag_name"
+        print place_block[n].size, " - size"
         print n, "-ii poezd"
         print place_info
         if place_info.find(place_type)>=0:
